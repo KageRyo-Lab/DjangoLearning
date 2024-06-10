@@ -1,4 +1,57 @@
 {% extends "base.html" %}
+{% load my_tags %}
+
 {% block mainBody %}
+
 <p>繼承base.html</p>
+
+<h1>list</h1>
+<p>{{ views_list }}</p>
+<p>{{ views_list.0 }}</p>
+<p>{{ views_list.1 }}</p>
+<p>{{ views_list.2 }}</p>
+
+<h1>dict</h1>
+<p>{{ views_dict }}</p>
+<p>{{ views_dict.name }}</p>
+<p>{{ views_dict.age }}</p>
+<p>{{ views_dict.school }}</p>
+
+<h1>判斷式</h1>
+<p>views.py設定的score是 {{score}}</p>
+<p>
+    {% if score >= 60 and score <= 100 %}
+        及格
+    {% elif score >= 0 and score < 60 %}
+        不及格
+    {% else %}
+        score不在合理範圍
+    {% endif %}
+</p>
+
+<h1>for-loop (views_list)</h1>
+{% for i in views_list %}
+    <p>{{ i }}</p>
+{% endfor %}
+
+<h1>for-loop (views_dict)</h1>
+{% for key, value in views_dict.items %}
+    <p>({{key}}:{{value}})</p>
+{% endfor %}
+
+<h1>空列表</h1>
+{% for i in empty_list %}
+    <p>{{ i }}</p>
+{% empty %}
+    <p>empty_list是空的</p>
+{% endfor %}
+
+<h1>自定義標籤</h1>
+<p>自定義標籤: {% mul 1 2 3 %}</p>
+{% my_input "name_input" "name" %}
+
+<h1>自定義過濾器</h1>
+<p> {{ score }}佔60%：</p>
+<p>自定義過濾器: {{ score|my_filter:0.6 }}</p>
+
 {% endblock mainBody %}
